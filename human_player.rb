@@ -1,3 +1,5 @@
+require_relative "king.rb"
+
 class HumanPlayer
 
     attr_reader :color
@@ -8,7 +10,7 @@ class HumanPlayer
 
 
     def make_move(board)
-        
+
         attacked = false
         start_arr = []
         end_arr = []
@@ -51,6 +53,12 @@ class HumanPlayer
         end
         
         board.move_piece(start_arr, end_arr)
+
+        if end_arr[0] == 0 && self.color == :red
+            board.grid[end_arr[0]][end_arr[1]] = King.new(:red, end_arr, board)
+        elsif end_arr[0] == 7 && self.color == :black
+            board.grid[end_arr[0]][end_arr[1]] = King.new(:black, end_arr, board)
+        end
         
         attacked
     end
