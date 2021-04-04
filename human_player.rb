@@ -1,6 +1,7 @@
 require_relative "king.rb"
+require_relative "player.rb"
 
-class HumanPlayer
+class HumanPlayer < Player
 
     attr_reader :color
     

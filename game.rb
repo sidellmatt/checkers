@@ -1,5 +1,6 @@
 require_relative "board.rb"
 require_relative "human_player.rb"
+require_relative "computer_player.rb"
 
 class Game
 
@@ -8,7 +9,7 @@ class Game
     def initialize
         @board = Board.new
         @player_1 = HumanPlayer.new(:red)
-        @player_2 = HumanPlayer.new(:black)
+        @player_2 = ComputerPlayer.new(:black)
         @current_player = @player_1
     end
 
@@ -31,7 +32,11 @@ class Game
                 self.switch_turn
             end
         end
-        puts "Game over. "
+        if @board.lost?(:red)
+            puts "Black won! "
+        else
+            puts "Red won! "
+        end
     end
 
 
