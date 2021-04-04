@@ -62,7 +62,6 @@ class Piece
         end
 
         attacks
-
     end
 
 

@@ -53,7 +53,6 @@ class HumanPlayer
         board.move_piece(start_arr, end_arr)
         
         attacked
-
     end
 
 
