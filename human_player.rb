@@ -8,10 +8,12 @@ class HumanPlayer
 
 
     def make_move(board)
-        valid = false
+        
         attacked = false
         start_arr = []
         end_arr = []
+
+        valid = false
         until valid
             puts "Enter a row number and column number of the piece you would like to move, with a space in between (no brackets). "
             puts "#{board.legal_moves(self.color)}"
@@ -22,6 +24,7 @@ class HumanPlayer
             end
             valid = true if board.legal_moves(self.color).any? { |subarray| subarray == start_arr }
         end
+        
         end_valid = false
         until end_valid
             puts "Enter one of the following valid positions to move your selected piece to. "
@@ -33,6 +36,7 @@ class HumanPlayer
             end
             end_valid = true if board.grid[start_arr[0]][start_arr[1]].moves.include?(end_arr)
         end
+        
         attacked = true if board.grid[start_arr[0]][start_arr[1]].attack.include?(end_arr)
         x_difference = end_arr[0] - start_arr[0]
         y_difference =end_arr[1] - start_arr[1]
@@ -45,8 +49,11 @@ class HumanPlayer
         elsif x_difference == -2 && y_difference == -2
             board.grid[start_arr[0] - 1][start_arr[1] - 1] = NullPiece.new([start_arr[0] - 1, start_arr[1] - 1], board)
         end
+        
         board.move_piece(start_arr, end_arr)
+        
         attacked
+
     end
 
 

@@ -29,29 +29,40 @@ class Piece
 
     def normal_move
         normal_moves = []
-        normal_moves << [pos[0] + direction, pos[1] + 1] if @board.valid_pos?([pos[0] + direction, pos[1] + 1]) && @board.empty?([pos[0] + direction, pos[1] + 1])
-        normal_moves << [pos[0] + direction, pos[1] - 1] if @board.valid_pos?([pos[0] + direction, pos[1] - 1]) && @board.empty?([pos[0] + direction, pos[1] - 1])
+        forward_right = [pos[0] + direction, pos[1] + 1]
+        forward_left = [pos[0] + direction, pos[1] - 1]
+        normal_moves << forward_right if @board.valid_pos?(forward_right) && @board.empty?(forward_right)
+        normal_moves << forward_left if @board.valid_pos?(forward_left) && @board.empty?(forward_left)
         normal_moves
     end
 
 
     def attack
         attacks = []
-        if @board.valid_pos?([pos[0] + direction, pos[1] + 1]) && !@board.empty?([pos[0] + direction, pos[1] + 1]) 
+        forward_right = [pos[0] + direction, pos[1] + 1]
+        forward_right_2 =[pos[0] + (direction * 2), pos[1] + 2]
+        
+        if @board.valid_pos?(forward_right) && !@board.empty?(forward_right) 
             if @board.grid[pos[0] + direction][pos[1] + 1].color != self.color 
-                if @board.valid_pos?([pos[0] + (direction * 2), pos[1] + 2]) && @board.empty?([pos[0] + (direction * 2), pos[1] + 2])
-                    attacks << [pos[0] + (direction * 2), pos[1] + 2]
+                if @board.valid_pos?(forward_right_2) && @board.empty?(forward_right_2)
+                    attacks << forward_right_2
                 end
             end
         end
-        if @board.valid_pos?([pos[0] + direction, pos[1] - 1]) && !@board.empty?([pos[0] + direction, pos[1] - 1]) 
+
+        forward_left = [pos[0] + direction, pos[1] - 1]
+        forward_left_2 = [pos[0] + (direction * 2), pos[1] - 2]
+
+        if @board.valid_pos?(forward_left) && !@board.empty?(forward_left) 
             if @board.grid[pos[0] + direction][pos[1] - 1].color != self.color 
-                if @board.valid_pos?([pos[0] + (direction * 2), pos[1] - 2]) && @board.empty?([pos[0] + (direction * 2), pos[1] - 2])
-                    attacks << [pos[0] + (direction * 2), pos[1] - 2]
+                if @board.valid_pos?(forward_left_2) && @board.empty?(forward_left_2)
+                    attacks << forward_left_2
                 end
             end
         end
+
         attacks
+
     end
 
 
